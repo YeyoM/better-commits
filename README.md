@@ -13,4 +13,39 @@ There are a total of 6 steps to create a conventional commit
 5. Provide a longer description of the change
 6. List any breaking changes or issues closed by this change
 
+### How to use it?  
+
+Since this is a golang project, you can install it by cloning the repository and running the following command:
+
+```bash
+go build
+```
+
+This will create an executable file that you can run with the following command (Linux):
+
+```bash
+./better-commits
+```
+
+*Note, give the executable file the right permissions to run it*
+
+After having the project compiled, you can run the following commands to add it to your path:
+
+```bash
+mv better-commits /usr/local/bin
+```
+
+Now you can run the command `better-commits` from anywhere in your terminal.
+
+### How to contribute?
+
+If you want to contribute to this project, you can fork the repository and create a pull request with your changes.
+
+**Note:** This project is still in development, so there are some features that are not implemented yet.
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+
 
