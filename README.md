@@ -41,7 +41,7 @@ Now you can run the command `better-commits` from anywhere in your terminal.
 
 If you want to contribute to this project, you can fork the repository and create a pull request with your changes.
 
-**Note:** This project is still in development, so there are some features that are not implemented yet.
+**Note:** This is my first golang project and is still in development, please be patient if there are some features that are not implemented yet, you can open an issue and together work on the feature or bug.
 
 ### License
 
