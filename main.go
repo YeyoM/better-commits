@@ -6,7 +6,6 @@ import (
   "os/exec"
   "strings"
   "time"
-  //"unicode"
 
   tea "github.com/charmbracelet/bubbletea"
 
@@ -235,35 +234,40 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
       if msg.String() == "enter" {
         switch m.currentStep {
-          case -1:
+          case -1: // check if there are changes to commit
             if m.canCommit && !m.noChanges {
               m.currentStep++
             }
             return m, nil
-          case 0:
+          case 0: // step 1 -> select the type of change (required)
             m.currentStep++
             if m.commitType == "" {
               m.commitType = "feat"
             }
             return m, nil
-          case 1:
+          case 1: // step 2 -> what is the scope of this change (optional)
             m.currentStep++
             return m, nil
-          case 2:
+          case 2: // step 3 -> select a gitmoji for the commit (optional)
             m.currentStep++
             return m, nil
-          case 3:
+          case 3: // step 4 -> write a short, imperative tense description of the change (required)
+            if m.description == "" {
+              docStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("9")).Margin(1, 2) // change the color to red
+              return m, nil
+            }
+            docStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#fff")).Margin(1, 2) // change the color back to white
             m.currentStep++
             return m, nil
-          case 4:
+          case 4: // step 5 -> provide a longer description of the change (optional)
             m.currentStep++
             return m, nil
-          case 5:
+          case 5: // step 6 -> list any breaking changes or issues closed by this change (optional)
             m.currentStep++
             return m, nil
-          case 6: 
+          case 6: // step 7 -> display the commit message (preview)
             m.CommitChanges() 
-            time.Sleep(5 * time.Second)
+            time.Sleep(2 * time.Second)
             m.currentStep++
             return m, nil
           default:
@@ -499,16 +503,6 @@ func (m model) CommitChanges() {
         fmt.Println("Error:", err)
         return
     }
-
-    // Split the output by newlines and trim leading whitespace from each line
-   // lines := strings.Split(string(output), "\n")
-   // fmt.Println(lines)
-   // for _, line := range lines {
-   //     trimmedLine := strings.TrimLeftFunc(line, func(r rune) bool {
-   //         return unicode.IsSpace(r)
-   //     })
-   //     fmt.Println(trimmedLine)
-   // }
 
     // Inform the user about the next steps with styles
     fmt.Println(successStyle.Render("Changes committed successfully. Now you can push the changes to the remote repository using: git push"))
